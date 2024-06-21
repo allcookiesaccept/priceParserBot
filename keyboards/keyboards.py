@@ -3,7 +3,7 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
 class Keyboard:
     def __init__(self):
-        self.categories = ['Смартфоны Xiaomi', 'Смартфоны Realme', 'Смартфоны Honor',]
+        self.categories = ['/xiaomi', '/realme', '/honor',]
         self.__activate_keyboard_lists()
         self.__activate_keyboard_chat_objects()
     def __activate_keyboard_lists(self):

@@ -14,10 +14,12 @@ class BotRouter(Router):
 
     def init_handlers(self):
         self.message(Command("start"))(self.start_command)
+        self.message(Command("xiaomi"))(self.parse_xiaomi)
+
 
     async def start_command(self, message: Message):
-        await message.answer("Выбери товарную группу для парсинга?", reply_markup=keys.TASK_TYPE)
+        await message.answer("Выбери бренд для парсинга?", reply_markup=keys.TASK_TYPE)
 
 
-    async def parse_single_category(self, message: Message):
+    async def parse_xiaomi(self, message: Message):
         await message.answer("Test")
