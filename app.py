@@ -1,6 +1,5 @@
 import asyncio
 from aiogram import Bot, Dispatcher
-from aiogram.client.default import DefaultBotProperties
 from config.data_manager import DataManager
 from config.models import BotConfig
 from config.logger import logger
@@ -14,7 +13,7 @@ async def main():
 
     config: BotConfig = data_manager.bot
 
-    bot: Bot = Bot(token=config.tg_bot.token, default=DefaultBotProperties(parse_mode='HTML'))
+    bot: Bot = Bot(token=config.tg_bot.token, parse_mode='HTML')
     dp: Dispatcher = Dispatcher(bot=bot)
 
     user_router = BotRouter(dp=dp)

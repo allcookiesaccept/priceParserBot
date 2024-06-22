@@ -2,18 +2,35 @@ import requests.models
 from bs4 import BeautifulSoup
 from .parser import Parser
 from selenium import webdriver
+import pandas as pd
+from config.logger import logger
+
 
 class Vek21Parser(Parser):
 
     def __init__(self):
+        logger.info("Initializing Vek21Parser")
         super().__init__()
+        self.__init_categories_dict()
 
-    def __call__(self, url):
-        page_src = self.request_url(url)
+    def __init_categories_dict(self):
+        self.categories = {"Смартфоны Xiaomi": "https://www.21vek.by/mobile/all/xiaomi/",
+                           "Смартфоны Realme": "https://www.21vek.by/mobile/all/realme/",
+                           "Смартфоны Honor": "https://www.21vek.by/mobile/all/honor/",
+                           }
+
+    def __call__(self, message):
+        page_src = self.request_url(self.categories[message])
         soup = self.create_soup(page_src)
         products = self.extract_products_from_soup(soup)
+        df = self.create_df(products)
+        return df
 
-        return products
+
+    def create_df(self, products):
+        columns = ['name', 'price', 'old_price', 'sales %', 'sales name', 'url']
+        df = pd.DataFrame(products, columns=columns)
+        return df
 
 
     def create_soup(self, page_src):

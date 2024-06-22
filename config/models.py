@@ -17,8 +17,7 @@ class Postgres:
     user: str
     password: str
 
-@dataclass()
+@dataclass
 class CSVFile:
     filename: str
     dataframe: pandas.DataFrame
-    type: str
